@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | AlphaTech</title>
+  <link rel="stylesheet" href="dashboars.css">
+  <link rel="icon" type="image/png" href="logo.png"/>
+  <style>
+    .about-hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 60px;
+      background: linear-gradient(to right, #0f1c8f, #4c5bd4);
+      color: white;
+    }
+    .about-hero h1 { font-size: 40px; letter-spacing: 3px; margin-bottom: 16px; }
+    .about-hero p  { max-width: 600px; line-height: 1.6; font-size: 15px; }
+    .about-body    { padding: 50px 60px; background: #f9f9f9; }
+    .about-body h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .about-body > p {
+      font-size: 14px; color: #666;
+      line-height: 1.8; margin-bottom: 28px; max-width: 750px;
+    }
+    .about-grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+    .about-card {
+      background: white; border: 1px solid #e0e0e0; border-radius: 10px;
+      padding: 24px 28px; width: 160px; text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .about-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    .about-card .icon { font-size: 28px; margin-bottom: 10px; }
+    .about-card h3   { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+    .about-card p    { font-size: 12px; color: #666; margin: 0; }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">ALPHA TECH</div>
+  <nav>
+    <a href="Contact.html">Contact</a>
+    <a href="About.html">About</a>
+    <a href="Login.php">Log In</a>
+    <a href="Signup.php">Sign Up</a>
+  </nav>
+</header>
+
+<!-- Same blue gradient as your hero section -->
+<section class="about-hero">
+  <h1>ABOUT ALPHA TECH</h1>
+  <p>
+    Your trusted source for premium computer hardware and networking equipment.
+    From processors to graphic cards, we have everything you need to build a perfect system.
+  </p>
+</section>
+
+<section class="about-body">
+  <h2>Who We Are</h2>
+  <p>
+    AlphaTech is a Philippine-based technology retailer specializing in high-performance
+    computer hardware, servers, workstations, and enterprise networking solutions.
+    We are committed to providing quality products at competitive prices, backed by
+    reliable customer support.
+  </p>
+  <p>
+    Whether you're a gamer building your dream PC, an IT professional setting up a
+    data center, or a business upgrading your network — AlphaTech has you covered.
+  </p>
+
+  <h2>Why Choose Us</h2>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="icon">🖥️</div>
+      <h3>Wide Selection</h3>
+      <p>GPUs, servers, routers, switches and more.</p>
+    </div>
+    <div class="about-card">
+      <div class="icon">⚡</div>
+      <h3>Fast Service</h3>
+      <p>Quick order processing and reliable delivery.</p>
+    </div>
+    <div class="about-card">
+      <div class="icon">🔒</div>
+      <h3>Trusted Quality</h3>
+      <p>Genuine, brand-certified hardware only.</p>
+    </div>
+    <div class="about-card">
+      <div class="icon">🤝</div>
+      <h3>Customer First</h3>
+      <p>Support team ready to help you anytime.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

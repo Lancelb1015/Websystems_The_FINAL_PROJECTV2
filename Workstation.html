@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="dashboars.css?v=2">
+  <title>Shop Online | AlphaTech</title>
+  <link rel="icon" type="image/png" href="logo.png"/>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">ALPHA TECH</div>
+  <nav>
+    <a href="home.php">Home</a>
+    <a href="About.html">About</a>
+    <a href="Contact.html">Contact</a>
+    <a href="logout.php">Log Out</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>ALPHA TECH</h1>
+      <p>
+        Discover premium computer hardware from top brands,
+        from processors to graphic card, we have everything
+        here you need to build a perfect system.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="window.location.href='Login.php'">Shop now</button>
+        <input class="hero-search" type="text" placeholder="">
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="Monitor.webp" alt="Workstation">
+    </div>
+  </div>
+
+  <div class="hero-divider"></div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="value">5000+</div>
+      <div class="label">Products</div>
+    </div>
+    <div class="hero-stat">
+      <div class="value">98%</div>
+      <div class="label">Customer satisfaction</div>
+    </div>
+    <div class="hero-stat">
+      <div class="value">24/7</div>
+      <div class="label">Support</div>
+    </div>
+  </div>
+</section>
+
+
+<section class="categories">
+  <h2>Shop by category</h2>
+  <p>Find exactly what you need. Browse our extensive selection of computer
+  hardware organized by component type.</p>
+  <div class="category-grid">
+    <a href="server.html"><div class="card"><img src="categorize_server.jpg" alt="Server"><span>Server</span></div></a>
+    <a href="workstation.html"><div class="card"><img src="categorize_workstation.jpg" alt="Workstation"><span>Workstation</span></div></a>
+    <a href="router.html"><div class="card"><img src="categorize_Router.webp" alt="Router"><span>Router</span></div></a>
+    <a href="switch.html"><div class="card"><img src="categorize_Switches.jpg" alt="Switches"><span>Switches</span></div></a>
+    <a href="gpu.html"><div class="card"><img src="categorize_GPU.jpg" alt="GPU"><span>GPU</span></div></a>
+  </div>
+</section>
+
+<section class="products">
+  <div class="products-header">
+    <h2>Best Selling Products</h2>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="index.php" style="display:inline-flex;align-items:center;justify-content:center;min-width:92px;height:34px;text-decoration:none;color:#ffffff;font-size:12px;background:#4c5bd4;border-radius:6px;padding:0 14px;">Explore More</a>
+      <button class="view-all">
+        <a href="#" onclick="viewCart()">View Cart</a>
+        <span id="cart-badge" class="cart-badge" style="display:none;">0</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <img src="wT.jpg" alt="">
+      <h4>IPS LCD Gaming Monitor</h4>
+      <p class="price">₱ 75,000</p>
+      <button class="my-button"
+        data-id="3"
+        data-name="IPS LCD Gaming Monitor"
+        data-sku="MON-IPS-GAMING"
+        data-price="75000"
+        onclick="addToCart(this)">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- Toast notification -->
+<div id="toast" style="
+  display:none;
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  background:#222;
+  color:#fff;
+  padding:14px 22px;
+  border-radius:8px;
+  font-size:14px;
+  z-index:9999;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+"></div>
+
+<script>
+  let __alphatechLoggedIn = false;
+  fetch("session_status.php", { credentials: "same-origin" })
+    .then(r => r.json())
+    .then(d => { __alphatechLoggedIn = !!d.logged_in; })
+    .catch(() => { __alphatechLoggedIn = false; });
+
+  /* ── Helpers ── */
+  function getCart() {
+    return JSON.parse(localStorage.getItem("alphatech_cart") || "[]");
+  }
+  function saveCart(cart) {
+    localStorage.setItem("alphatech_cart", JSON.stringify(cart));
+  }
+
+  /* ── Add to Cart ── */
+  function addToCart(btn) {
+    if (!__alphatechLoggedIn) {
+      const next = encodeURIComponent("Workstation.html");
+      window.location.href = `Login.php?next=${next}`;
+      return;
+    }
+    const id    = parseInt(btn.dataset.id);
+    const name  = btn.dataset.name;
+    const sku   = btn.dataset.sku;
+    const price = parseInt(btn.dataset.price);
+
+    let cart = getCart();
+    const existing = cart.find(i => i.id === id);
+
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ id, name, sku, price, qty: 1 });
+    }
+
+    saveCart(cart);
+    updateBadge();
+    showToast(`"${name}" added to cart!`);
+  }
+
+  function viewCart() {
+    if (!__alphatechLoggedIn) {
+      const next = encodeURIComponent("Workstation.html");
+      window.location.href = `Login.php?next=${next}`;
+      return;
+    }
+    window.location.href = 'cart.html';
+  }
+
+  /* ── Badge ── */
+  function updateBadge() {
+    const cart  = getCart();
+    const total = cart.reduce((s, i) => s + i.qty, 0);
+    const badge = document.getElementById("cart-badge");
+    badge.textContent  = total;
+    badge.style.display = total > 0 ? "inline-block" : "none";
+  }
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent  = msg;
+    toast.style.display = "block";
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => { toast.style.display = "none"; }, 2500);
+  }
+
+  /* ── Init ── */
+  updateBadge();
+</script>
+
+</body>
+</html>

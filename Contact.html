@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | AlphaTech</title>
+  <link rel="stylesheet" href="dashboars.css?v=2">
+  <link rel="icon" type="image/png" href="logo.png"/>
+  <style>
+    .contact-hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 60px;
+      background: linear-gradient(to right, #0f1c8f, #4c5bd4);
+      color: white;
+    }
+    .contact-hero h1 { font-size: 40px; letter-spacing: 3px; margin-bottom: 16px; }
+    .contact-hero p  { max-width: 500px; line-height: 1.6; font-size: 15px; }
+
+    .contact-body {
+      padding: 50px 60px;
+      background: #f9f9f9;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* Info cards — same style as your category cards */
+    .contact-info { flex: 1; min-width: 260px; }
+    .contact-info h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+    .info-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: #333;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .info-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    .info-card strong { color: #1a1a1a; }
+
+    /* Form */
+    .contact-form-wrap { flex: 1; min-width: 280px; }
+    .contact-form-wrap h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+    .contact-form-wrap input,
+    .contact-form-wrap textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      margin-bottom: 14px;
+      box-sizing: border-box;
+    }
+    .contact-form-wrap textarea { height: 130px; resize: vertical; }
+
+    /* Reuse your existing .my-button style */
+    .contact-form-wrap button {
+      background-color: #4c5bd4;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    .contact-form-wrap button:hover { background-color: blue; }
+
+    .success-msg {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">ALPHA TECH</div>
+  <nav>
+    <a href="Contact.html">Contact</a>
+    <a href="About.html">About</a>
+    <a href="Login.php">Log In</a>
+    <a href="Signup.php">Sign Up</a>
+  </nav>
+</header>
+
+<!-- Same blue gradient as your hero section -->
+<section class="contact-hero">
+  <h1>CONTACT US</h1>
+  <p>Have a question or need help? Reach out and we'll get back to you shortly.</p>
+</section>
+
+<section class="contact-body">
+
+  <!-- Contact Info -->
+  <div class="contact-info">
+    <h2>Get In Touch</h2>
+    <div class="info-card">📍 <strong>Address:</strong> AlphaTech Building, Valencia City Bukidnon, Philippines</div>
+    <div class="info-card">📞 <strong>Phone:</strong> +63 992 938 4836</div>
+    <div class="info-card">📧 <strong>Email:</strong> support@alphatech.ph</div>
+    <div class="info-card">🕐 <strong>Hours:</strong> Monday – Saturday, 8:00 AM – 6:00 PM</div>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="contact-form-wrap">
+    <h2>Send a Message</h2>
+    <input type="text"  id="c-name"    placeholder="Your Name">
+    <input type="email" id="c-email"   placeholder="Your Email">
+    <input type="text"  id="c-subject" placeholder="Subject">
+    <textarea           id="c-message" placeholder="Your message..."></textarea>
+    <button onclick="sendMessage()">Send Message</button>
+    <div class="success-msg" id="success-msg">
+      ✅ Message sent! We'll get back to you within 24 hours.
+    </div>
+  </div>
+
+</section>
+
+<script>
+  function sendMessage() {
+    const name    = document.getElementById('c-name').value.trim();
+    const email   = document.getElementById('c-email').value.trim();
+    const message = document.getElementById('c-message').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+    document.getElementById('success-msg').style.display = 'block';
+    document.getElementById('c-name').value    = '';
+    document.getElementById('c-email').value   = '';
+    document.getElementById('c-subject').value = '';
+    document.getElementById('c-message').value = '';
+  }
+</script>
+
+</body>
+</html>

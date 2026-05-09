@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="cart.css">
+  <title>Cart | AlphaTech</title>
+  <link rel="icon" type="image/png" href="logo.png"/>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">ALPHA TECH</div>
+  <nav>
+    <a href="Contact.html">Contact</a>
+    <a href="About.html">About</a>
+    <a href="Login.php">Log In</a>
+    <a href="Signup.php">Sign Up</a>
+  </nav>
+</header>
+
+<div class="cart-section">
+
+  <div class="cart-list">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <a href="index.php" class="continue-link">← Continue Shopping</a>
+  </div>
+
+  <div class="order-summary" id="order-summary" style="display:none;">
+    <h3>Order Summary</h3>
+    <div id="summary-lines"></div>
+    <div class="summary-total-row">
+      <span>Total</span>
+      <span id="summary-total">₱0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+  </div>
+
+</div>
+
+<!-- ── Checkout Success Modal ── -->
+<div class="modal-overlay" id="checkout-modal">
+  <div class="modal-box">
+    <div class="modal-icon">✅</div>
+    <h2>Order Placed!</h2>
+    <p>Thank you for your purchase.<br>Your order has been received and is now being processed.</p>
+    <button class="modal-close-btn" onclick="closeModal()">Continue Shopping</button>
+  </div>
+</div>
+
+<script>
+  function getCart() {
+    return JSON.parse(localStorage.getItem("alphatech_cart") || "[]");
+  }
+  function saveCart(cart) {
+    localStorage.setItem("alphatech_cart", JSON.stringify(cart));
+  }
+  function fmt(n) {
+    return "₱" + n.toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function renderCart() {
+    const cart      = getCart();
+    const itemsEl   = document.getElementById("cart-items");
+    const summaryEl = document.getElementById("order-summary");
+    const linesEl   = document.getElementById("summary-lines");
+    const totalEl   = document.getElementById("summary-total");
+
+    if (cart.length === 0) {
+      itemsEl.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
+      summaryEl.style.display = "none";
+      return;
+    }
+
+    itemsEl.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div class="item-info">
+          <div class="item-name">${item.name}</div>
+          <div class="item-unit-price">${fmt(item.price)} each</div>
+        </div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, +1)">+</button>
+        </div>
+        <div class="item-total">${fmt(item.price * item.qty)}</div>
+        <button class="remove-btn" onclick="removeItem(${item.id})" title="Remove">✕</button>
+      </div>
+    `).join("");
+
+    linesEl.innerHTML = cart.map(item => `
+      <div class="summary-line">
+        <span class="s-name">${item.name} x ${item.qty}</span>
+        <span class="s-amt">${fmt(item.price * item.qty)}</span>
+      </div>
+    `).join("");
+
+    const grand = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    totalEl.textContent = fmt(grand);
+    summaryEl.style.display = "block";
+  }
+
+  function changeQty(id, delta) {
+    let cart = getCart();
+    const item = cart.find(i => i.id === id);
+    if (item) {
+      item.qty = Math.max(1, item.qty + delta);
+      saveCart(cart);
+      renderCart();
+    }
+  }
+
+  function removeItem(id) {
+    let cart = getCart().filter(i => i.id !== id);
+    saveCart(cart);
+    renderCart();
+  }
+
+  /* ── Checkout ── */
+  function proceedToCheckout() {
+    saveCart([]);
+    document.getElementById("checkout-modal").classList.add("active");
+  }
+
+  function closeModal() {
+    document.getElementById("checkout-modal").classList.remove("active");
+    renderCart();
+  }
+
+  // Close modal if user clicks outside the box
+  document.getElementById("checkout-modal").addEventListener("click", function (e) {
+    if (e.target === this) closeModal();
+  });
+
+  renderCart();
+</script>
+</body>
+</html>
