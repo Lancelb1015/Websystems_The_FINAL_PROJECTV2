@@ -15,6 +15,10 @@ if (!isset($_SESSION['user_id'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Added smooth scroll behavior -->
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
   <link rel="stylesheet" href="dashboars.css?v=5">
   <title>Shop Online | AlphaTech</title>
   <link rel="icon" type="image/png" href="logo.png"/>
@@ -42,7 +46,8 @@ if (!isset($_SESSION['user_id'])) {
         here you need to build a perfect system.
       </p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="window.location.href='Login.php'">Shop now</button>
+        <!-- Modified: Directs to home.php and scrolls to the products ID -->
+        <button class="btn-primary" onclick="window.location.href='home.php#products'">Shop now</button>
         <input class="hero-search" type="text" placeholder="">
       </div>
     </div>
@@ -80,7 +85,8 @@ if (!isset($_SESSION['user_id'])) {
   </div>
 </section>
 
-<section class="products">
+<!-- Added id="products" to allow the Shop Now button to scroll here -->
+<section id="products" class="products">
   <div class="products-header">
     <h2>Best Selling Products</h2>
     <button class="view-all">
