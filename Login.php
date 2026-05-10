@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
+    // Change 'name' to 'fullname'
+    $stmt = $conn->prepare("SELECT id, fullname, password FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -23,12 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $user = $result->fetch_assoc();
-
+    
     if (password_verify($password, $user['password'])) {
         $_SESSION['user_id']   = $user['id'];
-        $_SESSION['user_name'] = $user['name'];
-        $next = $_GET['next'] ?? 'home.php';
-        header("Location: $next");
+        // Using 'fullname' as per your query change above
+        $_SESSION['user_name'] = $user['fullname']; 
+        
+        // This is the link redirect you requested
+        header("Location: home.php");
         exit();
     } else {
         header("Location: Login.php?error=Invalid+email+or+password");
@@ -86,69 +89,3 @@ $conn->close();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
