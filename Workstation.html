@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Added smooth scroll behavior -->
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
   <link rel="stylesheet" href="dashboars.css?v=2">
   <title>Shop Online | AlphaTech</title>
   <link rel="icon" type="image/png" href="logo.png"/>
@@ -29,12 +33,13 @@
         here you need to build a perfect system.
       </p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="window.location.href='Login.php'">Shop now</button>
+        <button class="btn-primary" onclick="window.location.href='#products'">Shop now</button>
         <input class="hero-search" type="text" placeholder="">
       </div>
     </div>
     <div class="hero-image">
-      <img src="Monitor.webp" alt="Workstation">
+      <!-- Changed to Monitor.webp -->
+      <img src="Monitor.webp" alt="Workstation Monitor">
     </div>
   </div>
 
@@ -69,11 +74,10 @@
   </div>
 </section>
 
-<section class="products">
+<section id="products" class="products">
   <div class="products-header">
     <h2>Best Selling Products</h2>
     <div style="display:flex;align-items:center;gap:10px;">
-      <a href="index.php" style="display:inline-flex;align-items:center;justify-content:center;min-width:92px;height:34px;text-decoration:none;color:#ffffff;font-size:12px;background:#4c5bd4;border-radius:6px;padding:0 14px;">Explore More</a>
       <button class="view-all">
         <a href="#" onclick="viewCart()">View Cart</a>
         <span id="cart-badge" class="cart-badge" style="display:none;">0</span>
@@ -84,7 +88,8 @@
   <div class="product-grid">
 
     <div class="product-card">
-      <img src="wT.jpg" alt="">
+      <!-- Changed from wT.jpg to Monitor.webp -->
+      <img src="Monitor.webp" alt="IPS LCD Gaming Monitor">
       <h4>IPS LCD Gaming Monitor</h4>
       <p class="price">₱ 75,000</p>
       <button class="my-button"
@@ -98,7 +103,6 @@
   </div>
 </section>
 
-<!-- Toast notification -->
 <div id="toast" style="
   display:none;
   position:fixed;
@@ -120,7 +124,6 @@
     .then(d => { __alphatechLoggedIn = !!d.logged_in; })
     .catch(() => { __alphatechLoggedIn = false; });
 
-  /* ── Helpers ── */
   function getCart() {
     return JSON.parse(localStorage.getItem("alphatech_cart") || "[]");
   }
@@ -128,7 +131,6 @@
     localStorage.setItem("alphatech_cart", JSON.stringify(cart));
   }
 
-  /* ── Add to Cart ── */
   function addToCart(btn) {
     if (!__alphatechLoggedIn) {
       const next = encodeURIComponent("Workstation.html");
@@ -163,7 +165,6 @@
     window.location.href = 'cart.html';
   }
 
-  /* ── Badge ── */
   function updateBadge() {
     const cart  = getCart();
     const total = cart.reduce((s, i) => s + i.qty, 0);
@@ -172,7 +173,6 @@
     badge.style.display = total > 0 ? "inline-block" : "none";
   }
 
-  /* ── Toast ── */
   function showToast(msg) {
     const toast = document.getElementById("toast");
     toast.textContent  = msg;
@@ -181,7 +181,6 @@
     toast._timer = setTimeout(() => { toast.style.display = "none"; }, 2500);
   }
 
-  /* ── Init ── */
   updateBadge();
 </script>
 
