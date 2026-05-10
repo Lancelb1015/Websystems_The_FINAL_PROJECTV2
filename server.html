@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Added smooth scroll behavior -->
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
   <link rel="stylesheet" href="dashboars.css?v=2">
   <title>Shop Online | AlphaTech</title>
   <link rel="icon" type="image/png" href="logo.png"/>
@@ -29,7 +33,8 @@
         here you need to build a perfect system.
       </p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="window.location.href='Login.php'">Shop now</button>
+        <!-- Updated: Directs to the products section on the current page -->
+        <button class="btn-primary" onclick="window.location.href='#products'">Shop now</button>
         <input class="hero-search" type="text" placeholder="">
       </div>
     </div>
@@ -69,11 +74,11 @@
   </div>
 </section>
 
-<section class="products">
+<!-- Added id="products" here -->
+<section id="products" class="products">
   <div class="products-header">
     <h2>Best Selling Products</h2>
     <div style="display:flex;align-items:center;gap:10px;">
-      <a href="index.php" style="display:inline-flex;align-items:center;justify-content:center;min-width:92px;height:34px;text-decoration:none;color:#ffffff;font-size:12px;background:#4c5bd4;border-radius:6px;padding:0 14px;">Explore More</a>
       <button class="view-all">
         <a href="#" onclick="viewCart()">View Cart</a>
         <span id="cart-badge" class="cart-badge" style="display:none;">0</span>
