@@ -13,7 +13,6 @@
 <header class="navbar">
   <nav>
     <a href="Contact.html">Contact</a>
-    <a href="viewall.html" style="background:#4c5bd4;color:#fff;padding:6px 14px;border-radius:6px;font-size:14px;text-decoration:none;">Explore More</a>
     <a href="About.html">About</a>
     <a href="Login.php">Log In</a>
     <a href="Signup.php">Sign Up</a>
